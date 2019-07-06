@@ -59,3 +59,11 @@ var FetchByAJAX = function ( URL , DATA , Section )
     }
   });
 }
+
+var PurgeInput = function ( input )
+{
+  input = input . replace ( "/t" , "" ) ;
+  input = input . replace ( "/r" , "" ) ;
+  input = input . replace ( "/n" , "" ) ;
+  return  input                         ;
+}
