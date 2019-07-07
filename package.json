@@ -1,0 +1,8 @@
+{
+  "name": "jsCIOS",
+  "version": "1.0.0",
+  "description": "CIOS For JavaScript",
+  "main": "CIOS.js",
+  "author": "Vladimir Lin",
+  "license": "MIT",
+}
