@@ -60,10 +60,64 @@ var FetchByAJAX = function ( URL , DATA , Section )
   });
 }
 
+var GetSession = function ( tag )
+{
+  var answer = { ready: false , value: "" } ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxGetSession.php" ) ,
+    {
+      Tag: tag,
+    },
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        answer . ready = true ;
+        answer . value = data [ "Value" ] ;
+      } else {
+      }
+    }
+  ) ;
+  return answer ;
+}
+
+var GetSessions = function ( tag , splitter )
+{
+  var answer = GetSession ( tag ) ;
+  var empty  = [ ] ;
+  if ( answer . length <= 0 ) return empty ;
+  return answer . split ( splitter ) ;
+}
+
+var SetSession = function ( tag , value )
+{
+  var answer = false ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxSetSession.php" ) ,
+    {
+      Tag: tag,
+      Value: value,
+    },
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        answer = true ;
+      } else {
+      }
+    }
+  ) ;
+  return answer ;
+}
+
 var PurgeInput = function ( input )
 {
   input = input . replace ( "/t" , "" ) ;
   input = input . replace ( "/r" , "" ) ;
   input = input . replace ( "/n" , "" ) ;
   return  input                         ;
+}
+
+function FullHeight ( id , topPosition = 20 )
+{
+  var p = $( id ) . offset ( ) ;
+  return parseInt ( $( window ) . height ( ) - p . top - topPosition ) ;
 }

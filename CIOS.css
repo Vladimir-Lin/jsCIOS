@@ -1,0 +1,28 @@
+.Selections
+{
+  background-color: #eeffee;
+}
+
+.InsideButton
+{
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 1px;
+  color: white;
+  padding: 2px 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.NameInput
+{
+  width: 100%;
+  border-color: #ff8888;
+  border-style: dotted;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 1px;
+  border-left-width: 0px;
+}
