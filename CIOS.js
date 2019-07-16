@@ -116,6 +116,22 @@ var PurgeInput = function ( input )
   return  input                         ;
 }
 
+var DefaultNameChanged = function ( uuid , name , locality , priority = 0 , relevance = 0 )
+{
+  var v = PurgeInput ( name ) ;
+  v = v . trim ( ) ;
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxName.php" ) ,
+    {
+      Uuid: uuid,
+      Name: v ,
+      Locality: locality,
+      Priority: priority ,
+      Relevance: relevance ,
+    }
+  ) ;
+}
+
 function FullHeight ( id , topPosition = 20 )
 {
   var p = $( id ) . offset ( ) ;
