@@ -116,6 +116,23 @@ var PurgeInput = function ( input )
   return  input                         ;
 }
 
+var NameChangedWithTable = function ( table , uuid , name , locality , priority = 0 , relevance = 0 )
+{
+  var v = PurgeInput ( name ) ;
+  v = v . trim ( ) ;
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxName.php" ) ,
+    {
+      Table: table ,
+      Uuid: uuid ,
+      Name: v ,
+      Locality: locality ,
+      Priority: priority ,
+      Relevance: relevance ,
+    }
+  ) ;
+}
+
 var DefaultNameChanged = function ( uuid , name , locality , priority = 0 , relevance = 0 )
 {
   var v = PurgeInput ( name ) ;
