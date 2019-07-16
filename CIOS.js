@@ -149,8 +149,92 @@ var DefaultNameChanged = function ( uuid , name , locality , priority = 0 , rele
   ) ;
 }
 
+var GetTranslation = function ( key )
+{
+  var name = "" ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxTranslation.php" ) ,
+    { Key: key . trim ( ) } ,
+    function ( data ) {
+      name = data [ "Message" ] ;
+    }
+  ) ;
+  return name ;
+}
+
+var GetTranslations = function ( )
+{
+  var name = { } ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxTranslations.php" ) ,
+    { } ,
+    function ( data ) {
+      name = data ;
+    }
+  ) ;
+  return name ;
+}
+
+var Translations = { } ;
+
+var TranslateIt = function ( key = "" )
+{
+  if ( ( Translations == undefined ) ||
+       ( Translations . length == undefined ) ||
+       ( Translations . length <= 0 ) ) {
+    Translations = GetTranslations ( ) ;
+  }
+  if ( key . length <= 0 ) return "" ;
+  return Translations [ key ] ;
+}
+
+var GetVariable = function ( key )
+{
+  var name = { } ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxVariable.php" ) ,
+    { Key: key . trim ( ) } ,
+    function ( data ) {
+      name = data ;
+    }
+  ) ;
+  return name ;
+}
+
+var LoadFile = function ( filename )
+{
+  var file = "";
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxFile.php" ) ,
+    { Filename: filename } ,
+    function ( data ) { file = data [ "Message" ] ; }
+  ) ;
+  return file ;
+}
+
 function FullHeight ( id , topPosition = 20 )
 {
   var p = $( id ) . offset ( ) ;
   return parseInt ( $( window ) . height ( ) - p . top - topPosition ) ;
 }
+
+var PostURL = function ( url , data )
+{
+  var form                                                            ;
+  form = document . createElement ( "form" )                          ;
+  form . setAttribute  ( "method" , "post" )                          ;
+  form . setAttribute  ( "action" , url    )                          ;
+  for ( key in data )                                                 {
+    var hiddenField                                                   ;
+    hiddenField = document . createElement ( "input"                ) ;
+    hiddenField . setAttribute             ( "type"  , "hidden"     ) ;
+    hiddenField . setAttribute             ( "name"  , key          ) ;
+    hiddenField . setAttribute             ( "value" , data [ key ] ) ;
+    form        . appendChild              ( hiddenField            ) ;
+  }
+  document . body . appendChild            ( form                   ) ;
+  form     . submit                        (                        ) ;
+}
+
+var MenuSeparator        = { text: '--' } ;
+var ContexturalSeparator = { type: 'seperator' } ;
