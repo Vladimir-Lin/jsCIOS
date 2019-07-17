@@ -110,9 +110,9 @@ var SetSession = function ( tag , value )
 
 var PurgeInput = function ( input )
 {
-  input = input . replace ( "/t" , "" ) ;
-  input = input . replace ( "/r" , "" ) ;
-  input = input . replace ( "/n" , "" ) ;
+  input = input . replace ( "\t" , "" ) ;
+  input = input . replace ( "\r" , "" ) ;
+  input = input . replace ( "\n" , "" ) ;
   return  input                         ;
 }
 
@@ -238,3 +238,69 @@ var PostURL = function ( url , data )
 
 var MenuSeparator        = { text: '--' } ;
 var ContexturalSeparator = { type: 'seperator' } ;
+
+var QuizletChanged = function ( url , prefer , uuid )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxQuizlet.php" ) ,
+    {
+      Uuid: uuid ,
+      Prefer: prefer ,
+      URL: PurgeInput ( url ) ,
+    }
+  ) ;
+}
+
+var QuizletsChanged = function ( url , prefer , uuid , key , inputclass )
+{
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxQuizlets.php" ) ,
+    {
+      Uuid: uuid ,
+      Prefer: prefer ,
+      URL: PurgeInput ( url ) ,
+      Key: key ,
+      Input: inputclass ,
+    },
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        $( "#" + key ) . html ( data [ "Message" ] ) ;
+      } else {
+      }
+    }
+  ) ;
+}
+
+var MaterialChanged = function ( url , prefer , uuid )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxMaterial.php" ) ,
+    {
+      Uuid: uuid ,
+      Prefer: prefer ,
+      URL: PurgeInput ( url ) ,
+    }
+  ) ;
+}
+
+var MaterialsChanged = function ( url , prefer , uuid , key , inputclass )
+{
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxMaterials.php" ) ,
+    {
+      Uuid: uuid ,
+      Prefer: prefer ,
+      URL: PurgeInput ( url ) ,
+      Key: key ,
+      Input: inputclass ,
+    },
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        $( "#" + key ) . html ( data [ "Message" ] ) ;
+      } else {
+      }
+    }
+  ) ;
+}
