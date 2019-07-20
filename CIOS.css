@@ -26,3 +26,39 @@
   border-bottom-width: 1px;
   border-left-width: 0px;
 }
+
+#UploadBar
+{
+  width: 100%;
+  height: 3px;
+}
+
+#UploadProgress
+{
+ width: 0%;
+ height: 3px;
+ background-color: blue;
+}
+
+#ImageContainer
+{
+  width: 320px;
+  height: 320px;
+}
+
+#BookIcon
+{
+  position: relative;
+  width: 320px;
+  height: 360px;
+}
+
+#UploadCover
+{
+  background-image: url("/images/48x48/upload.png") ;
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  bottom: 0px;
+  left: 272px;
+}

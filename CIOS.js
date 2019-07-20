@@ -149,6 +149,22 @@ var DefaultNameChanged = function ( uuid , name , locality , priority = 0 , rele
   ) ;
 }
 
+var ObjectRelation = function ( method , first , second , t1 , t2 , relation , table = "" )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxRelation.php" ) ,
+    {
+      Method: method ,
+      First: first ,
+      Second: second ,
+      T1: t1 ,
+      T2: t2 ,
+      Relation: relation ,
+      Table: table ,
+    }
+  ) ;
+}
+
 var GetTranslation = function ( key )
 {
   var name = "" ;
