@@ -338,3 +338,24 @@ var MaterialsChanged = function ( url , prefer , uuid , key , inputclass )
     }
   ) ;
 }
+
+var FilmUrlChanged = function ( url , prefer , uuid , key , inputclass )
+{
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxFilms.php" ) ,
+    {
+      Uuid: uuid ,
+      Prefer: prefer ,
+      URL: PurgeInput ( url ) ,
+      Key: key ,
+      Input: inputclass ,
+    },
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        $( "#" + key ) . html ( data [ "Message" ] ) ;
+      } else {
+      }
+    }
+  ) ;
+}
