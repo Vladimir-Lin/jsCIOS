@@ -133,6 +133,24 @@ var NameChangedWithTable = function ( table , uuid , name , locality , priority 
   ) ;
 }
 
+var DefaultNameChangedNoPurge = function ( uuid , name , locality , priority = 0 , relevance = 0 )
+{
+  var v = name ;
+  v = v . replace ( "\t" , "" ) ;
+  v = v . replace ( "\r" , "" ) ;
+  v = v . trim    ( ) ;
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxName.php" ) ,
+    {
+      Uuid: uuid,
+      Name: v ,
+      Locality: locality,
+      Priority: priority ,
+      Relevance: relevance ,
+    }
+  ) ;
+}
+
 var DefaultNameChanged = function ( uuid , name , locality , priority = 0 , relevance = 0 )
 {
   var v = PurgeInput ( name ) ;
