@@ -62,3 +62,28 @@
   bottom: 0px;
   left: 272px;
 }
+
+.GalleryPageInput
+{
+  width: 60px;
+  text-align: right;
+  border-color: #8888ff;
+  border-style: dotted;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 1px;
+  border-left-width: 0px;
+}
+
+#UploadGallery
+{
+  background-image: url("/images/24x24/upload.png") ;
+  background-size: 24px 24px ;
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
