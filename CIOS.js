@@ -359,3 +359,14 @@ var FilmUrlChanged = function ( url , prefer , uuid , key , inputclass )
     }
   ) ;
 }
+
+var copyTextToClipboard = function ( text )
+{
+  var textArea ;
+  textArea = document . createElement ( "textarea" ) ;
+  textArea . value = text;
+  document . body . appendChild ( textArea ) ;
+  textArea . select ( ) ;
+  document . execCommand ( 'copy' ) ;
+  document . body . removeChild ( textArea ) ;
+}
