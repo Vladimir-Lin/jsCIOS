@@ -370,3 +370,9 @@ var copyTextToClipboard = function ( text )
   document . execCommand ( 'copy' ) ;
   document . body . removeChild ( textArea ) ;
 }
+
+var LanguageUsingChanged = function ( language )
+{
+  SetSession ( "CIOS-Language" , language ) ;
+  window . location . reload ( ) ;
+}
