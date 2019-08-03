@@ -376,3 +376,31 @@ var LanguageUsingChanged = function ( language )
   SetSession ( "CIOS-Language" , language ) ;
   window . location . reload ( ) ;
 }
+
+var toPeopleString = function ( uuid )
+{
+  var head = uuid . substr ( 0 , 11 ) ;
+  if ( head != "14000000000" ) return "" ;
+  return uuid . replace ( "14000000000" , "act1" ) ;
+}
+
+var fromPeopleString = function ( puid )
+{
+  var head = puid . substr ( 0 , 4 ) ;
+  if ( head != "act1" ) return "" ;
+  return puid . replace ( "act1" , "14000000000" ) ;
+}
+
+var toClassString = function ( uuid )
+{
+  var head = uuid . substr ( 0 , 11 ) ;
+  if ( head != "36000000000" ) return "" ;
+  return uuid . replace ( "36000000000" , "cls3" ) ;
+}
+
+var fromClassString = function ( puid )
+{
+  var head = puid . substr ( 0 , 4 ) ;
+  if ( head != "cls3" ) return "" ;
+  return puid . replace ( "cls3" , "36000000000" ) ;
+}
