@@ -404,3 +404,112 @@ var fromClassString = function ( puid )
   if ( head != "cls3" ) return "" ;
   return puid . replace ( "cls3" , "36000000000" ) ;
 }
+
+var parametersChanged = function ( uuid , type , variety , scope , name , value )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxParameters.php" ) ,
+    {
+      Method: "Data" ,
+      Uuid: uuid,
+      Type: type,
+      Variety: variety,
+      Scope: scope,
+      Name: name,
+      Value: value
+    }
+  ) ;
+}
+
+var parameterValueChanged = function ( uuid , type , variety , scope , name , value )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxParameters.php" ) ,
+    {
+      Method: "Value" ,
+      Uuid: uuid,
+      Type: type,
+      Variety: variety,
+      Scope: scope,
+      Name: name,
+      Value: value
+    }
+  ) ;
+}
+
+var birthdayChanged = function (birthday,uuid,key)
+{
+  if ( birthday . length > 4096 ) return ;
+  var dt = birthday . replace ( /-/g , "/" ) ;
+  parametersChanged ( uuid , 1 , 14 , "Birthday" , key , dt ) ;
+}
+
+var onboardChanged = function (date,uuid,key)
+{
+  if ( date . length > 4096 ) return ;
+  var dt = date . replace ( /-/g , "/" ) ;
+  parametersChanged ( uuid , 1 , 14 , "Onboard" , key , dt ) ;
+}
+
+var informationChanged = function (value,item,uuid)
+{
+  if ( value . length > 4096 ) return ;
+  if ( item  . length > 128  ) return ;
+  if ( item  . length < 1    ) return ;
+  parametersChanged ( uuid , 1 , 15 , "Information" , item , value ) ;
+}
+
+var currencyChanged = function ( value , uuid )
+{
+  parametersChanged ( uuid , 2 , 43 , "Accounting" , "Currency" , value ) ;
+}
+
+var courseChanged = function ( value , uuid )
+{
+  parametersChanged ( uuid , 2 , 37 , "Teaching" , "Courses" , value ) ;
+}
+
+var dutyChanged = function ( duty , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 23 , "Status" , "Duty" , duty ) ;
+}
+
+var seniorityChanged = function ( level , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 23 , "Status" , "Level" , level ) ;
+}
+
+var creditChanged = function ( credit , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 23 , "Status" , "Credit" , credit ) ;
+}
+
+var degreeChanged = function ( credit , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 23 , "Status" , "Degree" , credit ) ;
+}
+
+var reposalChanged = function ( credit , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 23 , "Status" , "Reposal" , credit ) ;
+}
+
+var rankChanged = function ( weight , uuid )
+{
+  parameterValueChanged ( uuid , 1 , 89 , "Priority" , "Weight" , weight ) ;
+}
+
+var paymentChanged = function ( payment , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 48 , "Personal" , "Payment" , payment ) ;
+}
+
+var ChangeExpirePeriods = function ( value , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 37 , "Period" , "Expire" , value ) ;
+}
+
+var ChangeRegularPeriods = function ( value , uuid )
+{
+  parameterValueChanged ( uuid , 0 , 37 , "Period" , "Regular" , value ) ;
+}
