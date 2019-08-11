@@ -513,3 +513,17 @@ var ChangeRegularPeriods = function ( value , uuid )
 {
   parameterValueChanged ( uuid , 0 , 37 , "Period" , "Regular" , value ) ;
 }
+
+var noteItemChanged = function ( method , uuid , prefer , key , note )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxNotes.php" ) ,
+    {
+      Method: method ,
+      Uuid: uuid ,
+      Prefer: prefer ,
+      Key: key ,
+      Note: note
+    }
+  ) ;
+}
