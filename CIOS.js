@@ -437,7 +437,7 @@ var parameterValueChanged = function ( uuid , type , variety , scope , name , va
   ) ;
 }
 
-var birthdayChanged = function (birthday,uuid,key)
+var birthdayChanged = function ( birthday , uuid , key )
 {
   if ( birthday . length > 4096 ) return ;
   var dt = birthday . replace ( /-/g , "/" ) ;
@@ -467,6 +467,18 @@ var currencyChanged = function ( value , uuid )
 var courseChanged = function ( value , uuid )
 {
   parametersChanged ( uuid , 2 , 37 , "Teaching" , "Courses" , value ) ;
+}
+
+var coursesChanged = function ( lists , key , id , puid )
+{
+  var kv ;
+  var cl = [ ] ;
+  lists . forEach ( function ( e ) {
+    var checked = $( "#" + id + "-" + e ) . prop ( "checked" ) ;
+    if ( checked ) cl . push ( e ) ;
+  });
+  kv = cl . join ( " , " ) ;
+  parametersChanged ( puid , 2 , 37 , "Teaching" , key , kv ) ;
 }
 
 var dutyChanged = function ( duty , uuid )
