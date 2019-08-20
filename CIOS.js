@@ -252,12 +252,15 @@ function FullHeight ( id , topPosition = 20 )
   return parseInt ( $( window ) . height ( ) - p . top - topPosition ) ;
 }
 
-var PostURL = function ( url , data )
+var PostURL = function ( url , data , target = "" )
 {
   var form                                                            ;
-  form = document . createElement ( "form" )                          ;
-  form . setAttribute  ( "method" , "post" )                          ;
-  form . setAttribute  ( "action" , url    )                          ;
+  form   = document . createElement ( "form" )                        ;
+  if ( target . length > 0 )                                          {
+    form . setAttribute  ( "target" , target )                        ;
+  }                                                                   ;
+  form   . setAttribute  ( "method" , "post" )                        ;
+  form   . setAttribute  ( "action" , url    )                        ;
   for ( key in data )                                                 {
     var hiddenField                                                   ;
     hiddenField = document . createElement ( "input"                ) ;
@@ -538,4 +541,45 @@ var noteItemChanged = function ( method , uuid , prefer , key , note )
       Note: note
     }
   ) ;
+}
+
+var BackToManager = function ( okay , people )
+{
+  w2popup . close ( )                          ;
+  if ( ! okay ) return                         ;
+  var password = $( "#Password" ) . val ( )    ;
+  if ( password . length < 8 ) return          ;
+  PostURL ( "/login.php"                       ,
+            { "actionsid": people              ,
+              "actions-password": password } ) ;
+}
+
+var BackTo = function ( actid )
+{
+  var title  = TranslateIt ( "Login::ReturnManager"   ) ;
+  var login  = TranslateIt ( "Login::SignIn"          ) ;
+  var cancel = TranslateIt ( "Cancel"                 ) ;
+  var pwdstr = TranslateIt ( "Registration::Password" ) ;
+  var btn   = '<button class="w2ui-btn" onclick="BackToManager(true,\'' + actid + '\');">' + login + '</button>' ;
+  var ctn   = '<button class="w2ui-btn" onclick="BackToManager(false,\'' + actid + '\');">' + cancel + '</button>' ;
+  var btx   = btn + " " + ctn ;
+  var msg   = '<br>' +
+              '<table><tbody><tr><td valign="center" align="center">' +
+              '<tr><td width="1%" nowrap="nowrap">' + pwdstr + '</td><td>' +
+              '<input type="password" id="Password" class="form-control">' +
+              '</td></tr></tbody></table><br>' ;
+  w2popup . open ({
+    title     : title ,
+    body      : msg ,
+    buttons   : btx ,
+    width     : 240 ,
+    height    : 180 ,
+    overflow  : 'hidden',
+    color     : '#999999',
+    speed     : '0.3',
+    opacity   : '0.7',
+    modal     : true,
+    showClose : true,
+    showMax   : false,
+  }) ;
 }
