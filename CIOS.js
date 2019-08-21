@@ -543,6 +543,29 @@ var noteItemChanged = function ( method , uuid , prefer , key , note )
   ) ;
 }
 
+var isPassword = function ( passwd )
+{
+  if ( passwd . indexOf ( " "  ) >= 0 ) return false ;
+  if ( passwd . indexOf ( "'"  ) >= 0 ) return false ;
+  if ( passwd . indexOf ( "\"" ) >= 0 ) return false ;
+  if ( passwd . indexOf ( "\b" ) >= 0 ) return false ;
+  if ( passwd . indexOf ( "\r" ) >= 0 ) return false ;
+  if ( passwd . indexOf ( "\n" ) >= 0 ) return false ;
+  if ( passwd . indexOf ( "\t" ) >= 0 ) return false ;
+  if ( passwd . length           <  8 ) return false ;
+  return true ;
+}
+
+var AppendBodyHtml = function ( html )
+{
+  document.body.innerHTML = document.body.innerHTML + html ;
+}
+
+var RemoveBodyElement = function ( element )
+{
+  document . getElementById ( element ) . remove ( ) ;
+}
+
 var BackToManager = function ( okay , people )
 {
   w2popup . close ( )                          ;
