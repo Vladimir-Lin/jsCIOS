@@ -440,6 +440,23 @@ var parameterValueChanged = function ( uuid , type , variety , scope , name , va
   ) ;
 }
 
+var parameterDateTimeChanged = function ( uuid , type , variety , scope , name , value , tz )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxParameters.php" ) ,
+    {
+      Method: "DateTime" ,
+      Uuid: uuid,
+      Type: type,
+      Variety: variety,
+      Scope: scope,
+      Name: name,
+      Value: value ,
+      TZ: tz
+    }
+  ) ;
+}
+
 var birthdayChanged = function ( birthday , uuid , key )
 {
   if ( birthday . length > 4096 ) return ;
