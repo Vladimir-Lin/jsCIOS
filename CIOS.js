@@ -17,39 +17,39 @@ var SilenceAJAX = function ( data )
   } ;
 }
 
-var NormalAJAX = function ( URL , DATA , FUNC , ErrorFunction )
+var NormalAJAX = function ( URL , DATA , FUNC , ErrorFunction , asynchronous = false )
 {
   $.ajax({
     url: URL ,
-    type: "POST",
-    cache: false,
-    async: false,
-    dataType: 'json',
-    data: DATA,
-    success: FUNC,
-    error: ErrorFunction,
+    type: "POST" ,
+    cache: false ,
+    async: asynchronous ,
+    dataType: 'json' ,
+    data: DATA ,
+    success: FUNC ,
+    error: ErrorFunction ,
   });
 }
 
-var AssignAJAX = function ( URL , DATA )
+var AssignAJAX = function ( URL , DATA , asynchronous = false )
 {
-  NormalAJAX ( URL , DATA , SilenceAJAX , CommonAjaxError ) ;
+  NormalAJAX ( URL , DATA , SilenceAJAX , CommonAjaxError , asynchronous ) ;
 }
 
-var CommonAJAX = function ( URL , DATA , FUNC )
+var CommonAJAX = function ( URL , DATA , FUNC , asynchronous = false )
 {
-  NormalAJAX ( URL , DATA , FUNC , CommonAjaxError ) ;
+  NormalAJAX ( URL , DATA , FUNC , CommonAjaxError , asynchronous ) ;
 }
 
-var FetchByAJAX = function ( URL , DATA , Section )
+var FetchByAJAX = function ( URL , DATA , Section , asynchronous = false )
 {
   $.ajax({
     url: URL ,
-    type: "POST",
-    cache: false,
-    async: false,
-    dataType: 'json',
-    data: DATA,
+    type: "POST" ,
+    cache: false ,
+    async: asynchronous ,
+    dataType: 'json' ,
+    data: DATA ,
     success: function ( data ) {
       var tzHtml = data [ "Answer" ] ;
       if ( tzHtml === "Yes" ) {
@@ -557,6 +557,19 @@ var noteItemChanged = function ( method , uuid , prefer , key , note )
       Key: key ,
       Note: note
     }
+  ) ;
+}
+
+var PeopleStatusChanged = function ( value , puid , method )
+{
+  AssignAJAX(
+    AjaxAssetsPath ( "ajaxStates.php" ) ,
+    {
+      Method: method ,
+      Uuid: puid ,
+      Value: value ,
+    } ,
+    true
   ) ;
 }
 
