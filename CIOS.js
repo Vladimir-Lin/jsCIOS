@@ -690,7 +690,7 @@ var SmsDialog = function ( name , target , number )
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
       if ( tzHtml === 'Yes' ) {
-        AppendBodyHtml ( data [ "Message" ] ) ;
+        $( "body" ) . append ( data [ "Message" ] ) ;
         $( "#SmsEditor" ) . modal ( "show" ) ;
       } else {
         ReportAjaxProblem ( data ) ;
