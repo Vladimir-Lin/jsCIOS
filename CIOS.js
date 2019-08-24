@@ -588,12 +588,14 @@ var isPassword = function ( passwd )
 
 var AppendBodyHtml = function ( html )
 {
+  if ( html . length <= 0 ) return ;
   document.body.innerHTML = document.body.innerHTML + html ;
 }
 
 var RemoveBodyElement = function ( element )
 {
-  document . getElementById ( element ) . remove ( ) ;
+  var el = document . getElementById ( element ) ;
+  if ( el ) el . remove ( ) ;
 }
 
 var BackToManager = function ( okay , people )
@@ -635,4 +637,64 @@ var BackTo = function ( actid )
     showClose : true,
     showMax   : false,
   }) ;
+}
+
+var SendSmsTo = function ( send )
+{
+  if ( ! send ) {
+    $( "#SmsEditor" ) . modal ( "hide" ) ;
+    RemoveBodyElement ( "SmsEditor" ) ;
+    return ;
+  }
+
+  var number  = $( "#SmsPhoneNumber" ) . val ( ) ;
+  var sender  = $( "#SmsSender"      ) . val ( ) ;
+  var subject = $( "#SmsSubject"     ) . val ( ) ;
+  var content = $( "#SmsContent"     ) . val ( ) ;
+
+  $( "#SmsEditor" ) . modal ( "hide" ) ;
+  RemoveBodyElement ( "SmsEditor" ) ;
+
+  CommonAJAX (
+    "/commons/portfolio/phones/ajaxMMS.php" ,
+    {
+      Method: "Send" ,
+      Name: sender ,
+      Number: number ,
+      Subject: subject ,
+      Content: content ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === 'Yes' ) {
+        alert ( data [ "Message" ] ) ;
+      } else {
+        ReportAjaxProblem ( data ) ;
+      } ;
+    }
+  ) ;
+
+}
+
+var SmsDialog = function ( name , target , number )
+{
+  RemoveBodyElement ( "SmsEditor" ) ;
+  CommonAJAX (
+    "/commons/portfolio/phones/ajaxMMS.php" ,
+    {
+      Method: "Dialog" ,
+      Name: name ,
+      Target: target ,
+      Number: number ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === 'Yes' ) {
+        AppendBodyHtml ( data [ "Message" ] ) ;
+        $( "#SmsEditor" ) . modal ( "show" ) ;
+      } else {
+        ReportAjaxProblem ( data ) ;
+      } ;
+    }
+  ) ;
 }
