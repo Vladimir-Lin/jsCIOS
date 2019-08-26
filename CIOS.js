@@ -600,9 +600,10 @@ var RemoveBodyElement = function ( element )
 
 var BackToManager = function ( okay , people )
 {
-  w2popup . close ( )                          ;
-  if ( ! okay ) return                         ;
   var password = $( "#Password" ) . val ( )    ;
+  $( "#BackTo" ) . modal ( "hide" )            ;
+  RemoveBodyElement ( "BackTo" )               ;
+  if ( ! okay ) return                         ;
   if ( password . length < 8 ) return          ;
   PostURL ( "/login.php"                       ,
             { "actionsid": people              ,
@@ -611,32 +612,23 @@ var BackToManager = function ( okay , people )
 
 var BackTo = function ( actid )
 {
-  var title  = TranslateIt ( "Login::ReturnManager"   ) ;
-  var login  = TranslateIt ( "Login::SignIn"          ) ;
-  var cancel = TranslateIt ( "Cancel"                 ) ;
-  var pwdstr = TranslateIt ( "Registration::Password" ) ;
-  var btn   = '<button class="w2ui-btn" onclick="BackToManager(true,\'' + actid + '\');">' + login + '</button>' ;
-  var ctn   = '<button class="w2ui-btn" onclick="BackToManager(false,\'' + actid + '\');">' + cancel + '</button>' ;
-  var btx   = btn + " " + ctn ;
-  var msg   = '<br>' +
-              '<table><tbody><tr><td valign="center" align="center">' +
-              '<tr><td width="1%" nowrap="nowrap">' + pwdstr + '</td><td>' +
-              '<input type="password" id="Password" class="form-control">' +
-              '</td></tr></tbody></table><br>' ;
-  w2popup . open ({
-    title     : title ,
-    body      : msg ,
-    buttons   : btx ,
-    width     : 240 ,
-    height    : 180 ,
-    overflow  : 'hidden',
-    color     : '#999999',
-    speed     : '0.3',
-    opacity   : '0.7',
-    modal     : true,
-    showClose : true,
-    showMax   : false,
-  }) ;
+  RemoveBodyElement ( "BackTo" ) ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxDialog.php" ) ,
+    {
+      Method: "Back" ,
+      People: actid ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === 'Yes' ) {
+        $( "body" ) . append ( data [ "Message" ] ) ;
+        $( "#BackTo" ) . modal ( "show" ) ;
+      } else {
+        ReportAjaxProblem ( data ) ;
+      } ;
+    }
+  ) ;
 }
 
 var SendSmsTo = function ( send )
