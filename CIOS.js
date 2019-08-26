@@ -618,6 +618,7 @@ var BackTo = function ( actid )
     {
       Method: "Back" ,
       People: actid ,
+      ByPass: 1 ,
     } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
@@ -709,6 +710,7 @@ var AlertDialog = function ( content , title = "" , okay = "" , keycontent = "" 
       Okay: okay ,
       KeyTitle: keytitle ,
       KeyContent: keycontent ,
+      ByPass: 1 ,
     } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
