@@ -690,3 +690,34 @@ var SmsDialog = function ( name , target , number )
     }
   ) ;
 }
+
+var CloseAlertDialog = function ( )
+{
+  $( "#AlertDialog" ) . modal ( "hide" ) ;
+  RemoveBodyElement ( "AlertDialog" )    ;
+}
+
+var AlertDialog = function ( content , title = "" , okay = "" , keycontent = "" , keytitle = "" )
+{
+  RemoveBodyElement ( "AlertDialog" ) ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxDialog.php" ) ,
+    {
+      Method: "Dialog" ,
+      Content: content ,
+      Title: title ,
+      Okay: okay ,
+      KeyTitle: keytitle ,
+      KeyContent: keycontent ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === 'Yes' ) {
+        $( "body" ) . append ( data [ "Message" ] ) ;
+        $( "#AlertDialog" ) . modal ( "show" ) ;
+      } else {
+        ReportAjaxProblem ( data ) ;
+      } ;
+    }
+  ) ;
+}
