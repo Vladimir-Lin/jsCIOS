@@ -96,14 +96,15 @@ var SetSession = function ( tag , value )
     {
       Tag: tag,
       Value: value,
-    },
+    } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
       if ( tzHtml === "Yes" ) {
         answer = true ;
       } else {
       }
-    }
+    } ,
+    true
   ) ;
   return answer ;
 }
