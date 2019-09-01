@@ -547,6 +547,11 @@ var ChangeRegularPeriods = function ( value , uuid )
   parameterValueChanged ( uuid , 0 , 37 , "Period" , "Regular" , value ) ;
 }
 
+var offsetChanged = function ( value , uuid )
+{
+  parameterValueChanged ( uuid , 1 , 14 , "Offset" , "Minutes" , value ) ;
+}
+
 var noteItemChanged = function ( method , uuid , prefer , key , note )
 {
   AssignAJAX (
