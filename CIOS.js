@@ -17,28 +17,44 @@ var SilenceAJAX = function ( data )
   } ;
 }
 
-var NormalAJAX = function ( URL , DATA , FUNC , ErrorFunction , asynchronous = false )
+var NormalAJAX = function ( URL , DATA , FUNC , ErrorFunction , asynchronous = false , waiting = "" )
 {
-  $.ajax({
-    url: URL ,
-    type: "POST" ,
-    cache: false ,
-    async: asynchronous ,
-    dataType: 'json' ,
-    data: DATA ,
-    success: FUNC ,
-    error: ErrorFunction ,
-  });
+  if ( waiting . length > 0 ) {
+    $.ajax({
+      url: URL ,
+      type: "POST" ,
+      cache: false ,
+      async: asynchronous ,
+      dataType: 'json' ,
+      data: DATA ,
+      success: FUNC ,
+      error: ErrorFunction ,
+      beforeSend: function ( ) {
+        OpenLoading ( waiting ) ;
+      } ,
+    });
+  } else {
+    $.ajax({
+      url: URL ,
+      type: "POST" ,
+      cache: false ,
+      async: asynchronous ,
+      dataType: 'json' ,
+      data: DATA ,
+      success: FUNC ,
+      error: ErrorFunction ,
+    });
+  }
 }
 
-var AssignAJAX = function ( URL , DATA , asynchronous = false )
+var AssignAJAX = function ( URL , DATA , asynchronous = false , waiting = "" )
 {
-  NormalAJAX ( URL , DATA , SilenceAJAX , CommonAjaxError , asynchronous ) ;
+  NormalAJAX ( URL , DATA , SilenceAJAX , CommonAjaxError , asynchronous , waiting ) ;
 }
 
-var CommonAJAX = function ( URL , DATA , FUNC , asynchronous = false )
+var CommonAJAX = function ( URL , DATA , FUNC , asynchronous = false , waiting = "" )
 {
-  NormalAJAX ( URL , DATA , FUNC , CommonAjaxError , asynchronous ) ;
+  NormalAJAX ( URL , DATA , FUNC , CommonAjaxError , asynchronous , waiting ) ;
 }
 
 var FetchByAJAX = function ( URL , DATA , Section , asynchronous = false )
@@ -728,4 +744,27 @@ var AlertDialog = function ( content , title = "" , okay = "" , keycontent = "" 
       } ;
     }
   ) ;
+}
+
+var LoadWaiting = function ( keyword )
+{
+  var templ = "/themes/cheer/top/loading.html" ;
+  var modal = LoadFile ( templ ) ;
+  var msg = TranslateIt ( keyword ) ;
+  modal = modal . replace ( "$(LOADING-MESSAGE)" , msg ) ;
+  return modal ;
+}
+
+var OpenLoading = function ( waiting )
+{
+  RemoveBodyElement ( "loadingModal" ) ;
+  $( "body" ) . append ( waiting ) ;
+  $( "#loadingModal" ) . modal ( "show" ) ;
+}
+
+var CloseLoading = function ( )
+{
+  $( "#loadingModal" ) . modal ( "hide" ) ;
+  RemoveBodyElement ( "loadingModal" )    ;
+  $( ".modal-backdrop" ) . remove ( ) ;
 }
