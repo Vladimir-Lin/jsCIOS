@@ -28,10 +28,16 @@ var NormalAJAX = function ( URL , DATA , FUNC , ErrorFunction , asynchronous = f
       dataType: 'json' ,
       data: DATA ,
       success: FUNC ,
-      error: ErrorFunction ,
+      error: function ( ) {
+        ErrorFunction ( ) ;
+        CloseLoading ( ) ;
+      } ,
       beforeSend: function ( ) {
         OpenLoading ( waiting ) ;
       } ,
+      complete: function (XMLHttpRequest, textStatus) {
+        CloseLoading ( ) ;
+      }
     });
   } else {
     $.ajax({
@@ -57,23 +63,49 @@ var CommonAJAX = function ( URL , DATA , FUNC , asynchronous = false , waiting =
   NormalAJAX ( URL , DATA , FUNC , CommonAjaxError , asynchronous , waiting ) ;
 }
 
-var FetchByAJAX = function ( URL , DATA , Section , asynchronous = false )
+var FetchByAJAX = function ( URL , DATA , Section , asynchronous = false , waiting = "" )
 {
-  $.ajax({
-    url: URL ,
-    type: "POST" ,
-    cache: false ,
-    async: asynchronous ,
-    dataType: 'json' ,
-    data: DATA ,
-    success: function ( data ) {
-      var tzHtml = data [ "Answer" ] ;
-      if ( tzHtml === "Yes" ) {
-        $( Section ) . html ( data [ "Message" ] ) ;
-      } else {
+  if ( waiting . length > 0 ) {
+    OpenLoading ( waiting ) ;
+    $.ajax({
+      url: URL ,
+      type: "POST" ,
+      cache: false ,
+      async: asynchronous ,
+      dataType: 'json' ,
+      data: DATA ,
+      success: function ( data ) {
+        var tzHtml = data [ "Answer" ] ;
+        if ( tzHtml === "Yes" ) {
+          $( Section ) . html ( data [ "Message" ] ) ;
+        } else {
+        }
+      } ,
+      beforeSend: function ( ) {
+        OpenLoading ( waiting ) ;
+      } ,
+      complete: function (XMLHttpRequest, textStatus) {
+        CloseLoading ( ) ;
       }
-    }
-  });
+    });
+    CloseLoading ( ) ;
+  } else {
+    $.ajax({
+      url: URL ,
+      type: "POST" ,
+      cache: false ,
+      async: asynchronous ,
+      dataType: 'json' ,
+      data: DATA ,
+      success: function ( data ) {
+        var tzHtml = data [ "Answer" ] ;
+        if ( tzHtml === "Yes" ) {
+          $( Section ) . html ( data [ "Message" ] ) ;
+        } else {
+        }
+      }
+    });
+  }
 }
 
 var GetSession = function ( tag )
@@ -746,11 +778,16 @@ var AlertDialog = function ( content , title = "" , okay = "" , keycontent = "" 
   ) ;
 }
 
+var LoadingModalTemplate = "" ;
+var LoadingModalPath = "/themes/cheer/top/loading.html" ;
+
 var LoadWaiting = function ( keyword )
 {
-  var templ = "/themes/cheer/top/loading.html" ;
-  var modal = LoadFile ( templ ) ;
+  if ( LoadingModalTemplate . length <= 0 ) {
+    LoadingModalTemplate = LoadFile ( LoadingModalPath ) ;
+  }
   var msg = TranslateIt ( keyword ) ;
+  modal = LoadingModalTemplate ;
   modal = modal . replace ( "$(LOADING-MESSAGE)" , msg ) ;
   return modal ;
 }
@@ -766,5 +803,6 @@ var CloseLoading = function ( )
 {
   $( "#loadingModal" ) . modal ( "hide" ) ;
   RemoveBodyElement ( "loadingModal" )    ;
+  $( "body" ) . removeClass ( "modal-open" ) ;
   $( ".modal-backdrop" ) . remove ( ) ;
 }
