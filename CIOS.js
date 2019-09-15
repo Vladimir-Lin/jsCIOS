@@ -35,7 +35,7 @@ var NormalAJAX = function ( URL , DATA , FUNC , ErrorFunction , asynchronous = f
       beforeSend: function ( ) {
         OpenLoading ( waiting ) ;
       } ,
-      complete: function (XMLHttpRequest, textStatus) {
+      complete: function ( XMLHttpRequest , textStatus ) {
         CloseLoading ( ) ;
       }
     });
@@ -66,7 +66,6 @@ var CommonAJAX = function ( URL , DATA , FUNC , asynchronous = false , waiting =
 var FetchByAJAX = function ( URL , DATA , Section , asynchronous = false , waiting = "" )
 {
   if ( waiting . length > 0 ) {
-    OpenLoading ( waiting ) ;
     $.ajax({
       url: URL ,
       type: "POST" ,
@@ -84,11 +83,10 @@ var FetchByAJAX = function ( URL , DATA , Section , asynchronous = false , waiti
       beforeSend: function ( ) {
         OpenLoading ( waiting ) ;
       } ,
-      complete: function (XMLHttpRequest, textStatus) {
+      complete: function ( XMLHttpRequest , textStatus ) {
         CloseLoading ( ) ;
       }
     });
-    CloseLoading ( ) ;
   } else {
     $.ajax({
       url: URL ,
