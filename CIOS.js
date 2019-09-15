@@ -115,7 +115,7 @@ var GetSession = function ( tag )
     AjaxAssetsPath ( "ajaxGetSession.php" ) ,
     {
       Tag: tag,
-    },
+    } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
       if ( tzHtml === "Yes" ) {
@@ -178,7 +178,8 @@ var NameChangedWithTable = function ( table , uuid , name , locality , priority 
       Locality: locality ,
       Priority: priority ,
       Relevance: relevance ,
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -196,7 +197,8 @@ var DefaultNameChangedNoPurge = function ( uuid , name , locality , priority = 0
       Locality: locality,
       Priority: priority ,
       Relevance: relevance ,
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -212,7 +214,8 @@ var DefaultNameChanged = function ( uuid , name , locality , priority = 0 , rele
       Locality: locality,
       Priority: priority ,
       Relevance: relevance ,
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -228,7 +231,8 @@ var ObjectRelation = function ( method , first , second , t1 , t2 , relation , t
       T2: t2 ,
       Relation: relation ,
       Table: table ,
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -333,7 +337,8 @@ var QuizletChanged = function ( url , prefer , uuid )
       Uuid: uuid ,
       Prefer: prefer ,
       URL: PurgeInput ( url ) ,
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -354,7 +359,8 @@ var QuizletsChanged = function ( url , prefer , uuid , key , inputclass )
         $( "#" + key ) . html ( data [ "Message" ] ) ;
       } else {
       }
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -366,7 +372,8 @@ var MaterialChanged = function ( url , prefer , uuid )
       Uuid: uuid ,
       Prefer: prefer ,
       URL: PurgeInput ( url ) ,
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -380,14 +387,15 @@ var MaterialsChanged = function ( url , prefer , uuid , key , inputclass )
       URL: PurgeInput ( url ) ,
       Key: key ,
       Input: inputclass ,
-    },
+    } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
       if ( tzHtml === "Yes" ) {
         $( "#" + key ) . html ( data [ "Message" ] ) ;
       } else {
       }
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -401,14 +409,15 @@ var FilmUrlChanged = function ( url , prefer , uuid , key , inputclass )
       URL: PurgeInput ( url ) ,
       Key: key ,
       Input: inputclass ,
-    },
+    } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
       if ( tzHtml === "Yes" ) {
         $( "#" + key ) . html ( data [ "Message" ] ) ;
       } else {
       }
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -469,7 +478,8 @@ var parametersChanged = function ( uuid , type , variety , scope , name , value 
       Scope: scope,
       Name: name,
       Value: value
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -485,7 +495,8 @@ var parameterValueChanged = function ( uuid , type , variety , scope , name , va
       Scope: scope,
       Name: name,
       Value: value
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -502,7 +513,8 @@ var parameterDateTimeChanged = function ( uuid , type , variety , scope , name ,
       Name: name,
       Value: value ,
       TZ: tz
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -513,14 +525,14 @@ var birthdayChanged = function ( birthday , uuid , key )
   parametersChanged ( uuid , 1 , 14 , "Birthday" , key , dt ) ;
 }
 
-var onboardChanged = function (date,uuid,key)
+var onboardChanged = function ( date , uuid , key )
 {
   if ( date . length > 4096 ) return ;
   var dt = date . replace ( /-/g , "/" ) ;
   parametersChanged ( uuid , 1 , 14 , "Onboard" , key , dt ) ;
 }
 
-var informationChanged = function (value,item,uuid)
+var informationChanged = function ( value , item , uuid )
 {
   if ( value . length > 4096 ) return ;
   if ( item  . length > 128  ) return ;
@@ -610,7 +622,8 @@ var noteItemChanged = function ( method , uuid , prefer , key , note )
       Prefer: prefer ,
       Key: key ,
       Note: note
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -682,7 +695,8 @@ var BackTo = function ( actid )
       } else {
         ReportAjaxProblem ( data ) ;
       } ;
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -718,7 +732,8 @@ var SendSmsTo = function ( send )
       } else {
         ReportAjaxProblem ( data ) ;
       } ;
-    }
+    } ,
+    true
   ) ;
 
 }
@@ -742,7 +757,8 @@ var SmsDialog = function ( name , target , number )
       } else {
         ReportAjaxProblem ( data ) ;
       } ;
-    }
+    } ,
+    true
   ) ;
 }
 
@@ -774,7 +790,8 @@ var AlertDialog = function ( content , title = "" , okay = "" , keycontent = "" 
       } else {
         ReportAjaxProblem ( data ) ;
       } ;
-    }
+    } ,
+    true
   ) ;
 }
 
