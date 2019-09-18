@@ -625,6 +625,21 @@ var noteItemChanged = function ( method , uuid , prefer , key , note )
   ) ;
 }
 
+var noteColumnChanged = function ( method , uuid , prefer , key , value )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxNotes.php" ) ,
+    {
+      Method: method ,
+      Uuid: uuid ,
+      Prefer: prefer ,
+      Key: key ,
+      Value: value
+    } ,
+    true
+  ) ;
+}
+
 var PeopleStatusChanged = function ( value , puid , method )
 {
   AssignAJAX(
