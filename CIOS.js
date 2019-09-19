@@ -397,6 +397,19 @@ var MaterialsChanged = function ( url , prefer , uuid , key , inputclass )
   ) ;
 }
 
+var FilmPathChanged = function ( url , prefer , uuid )
+{
+  AssignAJAX (
+    AjaxAssetsPath ( "ajaxFilm.php" ) ,
+    {
+      Uuid: uuid ,
+      Prefer: prefer ,
+      Film: PurgeInput ( url ) ,
+    } ,
+    true
+  ) ;
+}
+
 var FilmUrlChanged = function ( url , prefer , uuid , key , inputclass )
 {
   CommonAJAX (
