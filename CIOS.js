@@ -106,6 +106,10 @@ var FetchByAJAX = function ( URL , DATA , Section , asynchronous = false , waiti
   }
 }
 
+var CurrentTimestamp = function ( ) {
+  return new Date ( ) . getTime ( ) ;
+}
+
 var GetSession = function ( tag )
 {
   var answer = { ready: false , value: "" } ;
