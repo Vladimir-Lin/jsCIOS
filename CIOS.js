@@ -449,8 +449,20 @@ var copyTextToClipboard = function ( text )
 
 var LanguageUsingChanged = function ( language )
 {
-  SetSession ( "CIOS-Language" , language ) ;
-  window . location . reload ( ) ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxSetSession.php" ) ,
+    {
+      Tag: "CIOS-Language" ,
+      Value: language ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        window . location . reload ( ) ;
+      }
+    } ,
+    true
+  ) ;
 }
 
 var toPeopleString = function ( uuid )
