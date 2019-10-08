@@ -804,6 +804,28 @@ var SmsDialog = function ( name , target , number )
   ) ;
 }
 
+var BackendCommand = function ( command , parameters )
+{
+  var answer = { ready: false , value: "" } ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxBackend.php" ) ,
+    {
+      Path: command ,
+      Parameters: JSON . stringify ( parameters )
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        answer . ready = true ;
+        answer . value = data ;
+      } else {
+      }
+    } ,
+    true
+  ) ;
+  return answer ;
+}
+
 var CloseAlertDialog = function ( )
 {
   $( "#AlertDialog" ) . modal ( "hide" ) ;
