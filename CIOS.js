@@ -290,6 +290,25 @@ var GetVariable = function ( key )
   return name ;
 }
 
+var ScrollToTop = function ( animation = true )
+{
+  if ( animation ) {
+    $("html, body") . animate ( { scrollTop : 0 } , "slow" ) ;
+  } else {
+    window . scrollTo ( 0 , 0 ) ;
+  }
+}
+
+var ScrollToBottom = function ( animation = true )
+{
+  if ( animation ) {
+    $("html, body") . animate ( { scrollTop : document.body.scrollHeight } , "slow" ) ;
+  } else {
+    window . scrollTo ( 0 , document . body            . scrollHeight ||
+                            document . documentElement . scrollHeight ) ;
+  }
+}
+
 var LoadFile = function ( filename )
 {
   var file = "";
