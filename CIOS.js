@@ -849,6 +849,8 @@ var CloseAlertDialog = function ( )
 {
   $( "#AlertDialog" ) . modal ( "hide" ) ;
   RemoveBodyElement ( "AlertDialog" )    ;
+  $( "body" ) . removeClass ( "modal-open" ) ;
+  $( ".modal-backdrop" ) . remove ( ) ;
 }
 
 var AlertDialog = function ( content , title = "" , okay = "" , keycontent = "" , keytitle = "" )
