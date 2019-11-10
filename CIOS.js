@@ -309,6 +309,17 @@ var ScrollToBottom = function ( animation = true )
   }
 }
 
+var ScrollToElement = function ( elementName , animation = true )
+{
+  var el = document . getElementById ( elementName ) ;
+  if ( null == el ) return ;
+  if ( animation ) {
+    $("html, body") . animate ( { scrollTop : el . offsetTop } , "slow" ) ;
+  } else {
+    window . scrollTo ( 0 , el . offsetTop ) ;
+  }
+}
+
 var LoadFile = function ( filename )
 {
   var file = "";
