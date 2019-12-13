@@ -164,7 +164,7 @@ var PurgeInput = function ( input )
   input = input . replace ( "\t" , "" ) ;
   input = input . replace ( "\r" , "" ) ;
   input = input . replace ( "\n" , "" ) ;
-  return  input                         ;
+  return  input . trim    (           ) ;
 }
 
 var NameChangedWithTable = function ( table , uuid , name , locality , priority = 0 , relevance = 0 )
@@ -723,6 +723,18 @@ var isPassword = function ( passwd )
   if ( passwd . indexOf ( "\t" ) >= 0 ) return false ;
   if ( passwd . length           <  8 ) return false ;
   return true ;
+}
+
+var isValidEmail = function ( email )
+{
+  email = PurgeInput ( email ) ;
+  if ( email . length          <= 0 ) return false ;
+  if ( email . indexOf ( "@" ) <  0 ) return false ;
+  var edom = email      . split ( "@" )            ;
+  if ( edom  . length          < 1  ) return false ;
+  var exom = edom [ 1 ] . split ( "." )            ;
+  if ( exom  . indexOf ( "." ) <  0 ) return false ;
+  return true                                      ;
 }
 
 var AppendBodyHtml = function ( html )
