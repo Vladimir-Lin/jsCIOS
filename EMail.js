@@ -8,6 +8,10 @@ class EMail {
   Purge ( )                                     {
     var input                                   ;
     input       = this  . Mail                  ;
+    if ( input . length > 255 )                 {
+      this . Mail = ""                          ;
+      return this . Mail                        ;
+    }                                           ;
     input       = input . replace ( "\t" , "" ) ;
     input       = input . replace ( "\r" , "" ) ;
     input       = input . replace ( "\n" , "" ) ;

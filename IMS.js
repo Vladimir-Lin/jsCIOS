@@ -9,6 +9,10 @@ class IMS {
   Purge ( )                                   {
     var input                                 ;
     input     = this  . IM                    ;
+    if ( input . length > 128                 {
+      this . IM = ""                          ;
+      return this . IM                        ;
+    }                                         ;
     input     = input . replace ( "\t" , "" ) ;
     input     = input . replace ( "\r" , "" ) ;
     input     = input . replace ( "\n" , "" ) ;

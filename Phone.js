@@ -15,6 +15,10 @@ class Phone {
     var i                                         ;
     var allows    = "0123456789-"                 ;
     input         = this  . Number                ;
+    if ( input . length > 64 )                    {
+      this . Number = ""                          ;
+      return this . Number                        ;
+    }                                             ;
     input         = input . replace ( "\t" , "" ) ;
     input         = input . replace ( "\r" , "" ) ;
     input         = input . replace ( "\n" , "" ) ;
