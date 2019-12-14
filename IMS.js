@@ -9,7 +9,7 @@ class IMS {
   Purge ( )                                   {
     var input                                 ;
     input     = this  . IM                    ;
-    if ( input . length > 128                 {
+    if ( input . length > 128 )               {
       this . IM = ""                          ;
       return this . IM                        ;
     }                                         ;
