@@ -1,37 +1,96 @@
 class IMS {
 
-  constructor ( email = "" ) {
-    this . EMail = email ;
-    this . Purge ( )     ;
+  constructor ( appid , ims ) {
+    this . App = appid ;
+    this . IM  = ims   ;
+    this . Purge ( )   ;
   }
 
-  get Purge ( )                                  {
-    input        = this  . EMail                 ;
-    input        = input . replace ( "\t" , "" ) ;
-    input        = input . replace ( "\r" , "" ) ;
-    input        = input . replace ( "\n" , "" ) ;
-    this . EMail = input . trim    (           ) ;
-    return this . EMail                          ;
+  Purge ( )                                   {
+    var input                                 ;
+    input     = this  . IM                    ;
+    input     = input . replace ( "\t" , "" ) ;
+    input     = input . replace ( "\r" , "" ) ;
+    input     = input . replace ( "\n" , "" ) ;
+    input     = input . replace ( " "  , "" ) ;
+    input     = input . replace ( "\\" , "" ) ;
+    input     = input . replace ( "\"" , "" ) ;
+    input     = input . replace ( "'"  , "" ) ;
+    input     = input . replace ( "`"  , "" ) ;
+    this . IM = input . trim    (           ) ;
+    return this . IM                          ;
   }
 
-  set setEMail ( email ) {
-    this . EMail = email ;
-    this . Purge ( )     ;
+  setApp ( appid )     {
+    this . App = appid ;
   }
 
-  get getEMail ( ) {
-    return this . EMail ;
+  setIM ( ims )      {
+    this . IM = ims  ;
+    this . Purge ( ) ;
   }
 
-  get isValid ( ) {
-    email = this . EMail                             ;
-    if ( email . length          <= 0 ) return false ;
-    if ( email . indexOf ( "@" ) <  0 ) return false ;
-    var edom = email      . split ( "@" )            ;
-    if ( edom  . length          < 1  ) return false ;
-    var exom = edom [ 1 ] . split ( "." )            ;
-    if ( exom  . indexOf ( "." ) <  0 ) return false ;
-    return true                                      ;
+  getIM ( ) {
+    return this . IM ;
   }
 
+  isValid ( )                            {
+    var im = this . IM                   ;
+    if ( im . length <= 2 ) return false ;
+    return true                          ;
+  }
+
+  Exists ( ) {
+    var app = this . App ;
+    var ims = this . IM  ;
+    var exist = false ;
+    CommonAJAX (
+      AjaxAssetsPath ( "ajaxIMS.php" ) ,
+      {
+        Method : "Exists" ,
+        App    : app      ,
+        IMS    : ims      ,
+      } ,
+      function ( data ) {
+        var tzHtml = data [ "Answer" ] ;
+        if ( tzHtml === 'Yes' ) {
+          exist = true ;
+        }
+      }
+    ) ;
+    return exist ;
+  }
+
+  Correctness ( id ) {
+    var correct = false ;
+    if ( this . IM . length <= 0 ) {
+      $( id ) . css ( "background-color" , "transparent" ) ;
+      return ;
+    }
+    if ( this . isValid ( ) ) {
+      correct = true ;
+    }
+    if ( correct ) {
+      if ( this . Exists ( ) ) {
+        correct = false ;
+        $( id ) . css ( "background-color" , "lightcoral" ) ;
+        return ;
+      }
+    }
+    if ( ! correct ) {
+      $( id ) . css ( "background-color" , "bisque" ) ;
+      return ;
+    }
+    $( id ) . css ( "background-color" , "transparent" ) ;
+  }
+
+}
+
+var VerifyIMS = function ( appid , id )
+{
+  var app     = $( appid ) . val ( ) ;
+  var account = $( id    ) . val ( ) ;
+  var im      = new IMS ( app , account ) ;
+  $( id ) . val ( im . getIM ( ) ) ;
+  im . Correctness ( id ) ;
 }
