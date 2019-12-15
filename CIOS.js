@@ -116,7 +116,30 @@ var GetSession = function ( tag )
   CommonAJAX (
     AjaxAssetsPath ( "ajaxGetSession.php" ) ,
     {
-      Tag: tag,
+      Method : "Single" ,
+      Tag    : tag      ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === "Yes" ) {
+        answer . ready = true ;
+        answer . value = data [ "Value" ] ;
+      } else {
+      }
+    }
+  ) ;
+  return answer ;
+}
+
+var GetInsideSession = function ( tag , second )
+{
+  var answer = { ready: false , value: "" } ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxGetSession.php" ) ,
+    {
+      Method : "Inside" ,
+      Tag    : tag      ,
+      Second : second   ,
     } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
