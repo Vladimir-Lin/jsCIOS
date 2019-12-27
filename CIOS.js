@@ -985,3 +985,23 @@ var CloseLoading = function ( )
   $( "body" ) . removeClass ( "modal-open" ) ;
   $( ".modal-backdrop" ) . remove ( ) ;
 }
+
+var PlayNotify = function ( voice )
+{
+  var url   ;
+  var audio ;
+  switch ( voice ) {
+    case  1 :
+      url = ThemeAudiosPath ( "append.mp3"   ) ;
+    break   ;
+    case  2 :
+      url = ThemeAudiosPath ( "incoming.mp3" ) ;
+    break   ;
+    case  3 :
+      url = ThemeAudiosPath ( "click.mp3"    ) ;
+    break   ;
+  }
+  if ( url . length <= 0 ) return ;
+  audio = new Audio ( url ) ;
+  audio . play ( ) ;
+}
