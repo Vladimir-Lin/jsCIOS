@@ -582,13 +582,13 @@ var parametersChanged = function ( uuid , type , variety , scope , name , value 
   AssignAJAX (
     AjaxAssetsPath ( "ajaxParameters.php" ) ,
     {
-      Method: "Data" ,
-      Uuid: uuid,
-      Type: type,
-      Variety: variety,
-      Scope: scope,
-      Name: name,
-      Value: value
+      Method  : "Data"  ,
+      Uuid    : uuid    ,
+      Type    : type    ,
+      Variety : variety ,
+      Scope   : scope   ,
+      Name    : name    ,
+      Value   : value   ,
     } ,
     true
   ) ;
@@ -599,14 +599,14 @@ var parameterValueChanged = function ( uuid , type , variety , scope , name , va
   AssignAJAX (
     AjaxAssetsPath ( "ajaxParameters.php" ) ,
     {
-      Method: "Value" ,
-      Uuid: uuid,
-      Type: type,
-      Variety: variety,
-      Scope: scope,
-      Name: name,
-      Value: value
-    } ,
+      Method  : "Value" ,
+      Uuid    : uuid    ,
+      Type    : type    ,
+      Variety : variety ,
+      Scope   : scope   ,
+      Name    : name    ,
+      Value   : value   ,
+    }                   ,
     true
   ) ;
 }
@@ -616,15 +616,15 @@ var parameterDateTimeChanged = function ( uuid , type , variety , scope , name ,
   AssignAJAX (
     AjaxAssetsPath ( "ajaxParameters.php" ) ,
     {
-      Method: "DateTime" ,
-      Uuid: uuid,
-      Type: type,
-      Variety: variety,
-      Scope: scope,
-      Name: name,
-      Value: value ,
-      TZ: tz
-    } ,
+      Method  : "DateTime" ,
+      Uuid    : uuid       ,
+      Type    : type       ,
+      Variety : variety    ,
+      Scope   : scope      ,
+      Name    : name       ,
+      Value   : value      ,
+      TZ      : tz         ,
+    }                      ,
     true
   ) ;
 }
@@ -646,8 +646,8 @@ var onboardChanged = function ( date , uuid , key )
 var informationChanged = function ( value , item , uuid )
 {
   if ( value . length > 4096 ) return ;
-  if ( item  . length > 128  ) return ;
-  if ( item  . length < 1    ) return ;
+  if ( item  . length >  128 ) return ;
+  if ( item  . length <    1 ) return ;
   parametersChanged ( uuid , 1 , 15 , "Information" , item , value ) ;
 }
 
@@ -728,12 +728,12 @@ var noteItemChanged = function ( method , uuid , prefer , key , note )
   AssignAJAX (
     AjaxAssetsPath ( "ajaxNotes.php" ) ,
     {
-      Method: method ,
-      Uuid: uuid ,
-      Prefer: prefer ,
-      Key: key ,
-      Note: note
-    } ,
+      Method : method ,
+      Uuid   : uuid   ,
+      Prefer : prefer ,
+      Key    : key    ,
+      Note   : note   ,
+    }                 ,
     true
   ) ;
 }
@@ -743,12 +743,12 @@ var noteColumnChanged = function ( method , uuid , prefer , key , value )
   AssignAJAX (
     AjaxAssetsPath ( "ajaxNotes.php" ) ,
     {
-      Method: method ,
-      Uuid: uuid ,
-      Prefer: prefer ,
-      Key: key ,
-      Value: value
-    } ,
+      Method : method ,
+      Uuid   : uuid   ,
+      Prefer : prefer ,
+      Key    : key    ,
+      Value  : value  ,
+    }                 ,
     true
   ) ;
 }
@@ -758,9 +758,9 @@ var PeopleStatusChanged = function ( value , puid , method )
   AssignAJAX(
     AjaxAssetsPath ( "ajaxStates.php" ) ,
     {
-      Method: method ,
-      Uuid: puid ,
-      Value: value ,
+      Method : method ,
+      Uuid   : puid   ,
+      Value  : value  ,
     } ,
     true
   ) ;
