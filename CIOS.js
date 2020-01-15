@@ -485,7 +485,7 @@ var MaterialsChanged = function ( url , prefer , uuid , key , inputclass )
   ) ;
 }
 
-var FilmPathChanged = function ( url , prefer , uuid )
+var FilmPathChanged = function ( url , prefer , uuid , async = true )
 {
   AssignAJAX (
     AjaxAssetsPath ( "ajaxFilm.php" ) ,
@@ -494,7 +494,7 @@ var FilmPathChanged = function ( url , prefer , uuid )
       Prefer: prefer ,
       Film: PurgeInput ( url ) ,
     } ,
-    true
+    async
   ) ;
 }
 
