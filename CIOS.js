@@ -1021,7 +1021,38 @@ var PlayNotify = function ( voice )
   audio . play ( ) ;
 }
 
+var ClosePageHowTo = function ( )
+{
+  $( "#HelpDialog" ) . modal ( "hide" ) ;
+  RemoveBodyElement ( "HelpDialog" )    ;
+  $( "body" ) . removeClass ( "modal-open" ) ;
+  $( ".modal-backdrop" ) . remove ( ) ;
+}
+
 var PageHowTo = function ( puid , role , page )
 {
-    console . log ( puid + " : " + role + " : " + page ) ;
+  $( "#HelpDialog" ) . modal ( "hide" ) ;
+  RemoveBodyElement ( "HelpDialog" ) ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxHelp.php" ) ,
+    {
+      Method: "WordPress" ,
+      People: puid ,
+      Role: role ,
+      Page: page ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === 'Yes' ) {
+        var dialog = data [ "Message" ] ;
+        if ( dialog . length > 0 ) {
+          $( "body" ) . append ( dialog ) ;
+          $( "#HelpDialog" ) . modal ( "show" ) ;
+        }
+      } else {
+        ReportAjaxProblem ( data ) ;
+      } ;
+    } ,
+    true
+  ) ;
 }
