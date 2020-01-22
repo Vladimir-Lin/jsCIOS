@@ -1020,3 +1020,8 @@ var PlayNotify = function ( voice )
   audio = new Audio ( url ) ;
   audio . play ( ) ;
 }
+
+var PageHowTo = function ( puid , role , page )
+{
+    console . log ( puid + " : " + role + " : " + page ) ;
+}
