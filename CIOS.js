@@ -1036,10 +1036,37 @@ var PageHowTo = function ( puid , role , page )
   CommonAJAX (
     AjaxAssetsPath ( "ajaxHelp.php" ) ,
     {
-      Method: "WordPress" ,
-      People: puid ,
-      Role: role ,
-      Page: page ,
+      Method : "WordPress" ,
+      People : puid        ,
+      Role   : role        ,
+      Page   : page        ,
+    } ,
+    function ( data ) {
+      var tzHtml = data [ "Answer" ] ;
+      if ( tzHtml === 'Yes' ) {
+        var dialog = data [ "Message" ] ;
+        if ( dialog . length > 0 ) {
+          $( "body" ) . append ( dialog ) ;
+          $( "#HelpDialog" ) . modal ( "show" ) ;
+        }
+      } else {
+        ReportAjaxProblem ( data ) ;
+      } ;
+    } ,
+    true
+  ) ;
+}
+
+var RulesHowTo = function ( rules , page )
+{
+  $( "#HelpDialog" ) . modal ( "hide" ) ;
+  RemoveBodyElement ( "HelpDialog" ) ;
+  CommonAJAX (
+    AjaxAssetsPath ( "ajaxHelp.php" ) ,
+    {
+      Method : "Rules" ,
+      Rules  : rules   ,
+      Page   : page    ,
     } ,
     function ( data ) {
       var tzHtml = data [ "Answer" ] ;
