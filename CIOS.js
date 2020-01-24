@@ -826,7 +826,6 @@ var BackToManager = function ( okay , people )
   if ( ! okay ) return                         ;
   password = PurgeInput ( password )           ;
   if ( password . length < 8 ) return          ;
-  PlayNotify ( 1 )                             ;
   PostURL ( "/login.php"                       ,
             { "actionsid": people              ,
               "actions-password": password } ) ;
@@ -847,7 +846,7 @@ var BackTo = function ( actid )
       if ( tzHtml === 'Yes' ) {
         $( "body" ) . append ( data [ "Message" ] ) ;
         $( "#BackTo" ) . modal ( "show" ) ;
-        PlayNotify ( 3 ) ;
+        PlayNotify ( 1 ) ;
       } else {
         ReportAjaxProblem ( data ) ;
       } ;
