@@ -988,6 +988,21 @@ var LoadWaiting = function ( keyword )
   return modal ;
 }
 
+var LoadingMessage = function ( )
+{
+  LoadWaiting ( "Loading" ) ;
+}
+
+var UpdatingMessage = function ( )
+{
+  LoadWaiting ( "Updating" ) ;
+}
+
+var SearchingMessage = function ( )
+{
+  LoadWaiting ( "Searching" ) ;
+}
+
 var OpenLoading = function ( waiting )
 {
   RemoveBodyElement ( "loadingModal" ) ;
