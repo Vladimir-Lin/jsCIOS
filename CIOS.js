@@ -1100,3 +1100,23 @@ var RulesHowTo = function ( rules , page )
     true
   ) ;
 }
+
+var FacebookSharing = function ( url )
+{
+  var sharing = "https://www.facebook.com/sharer/sharer.php?u=" + url ;
+  window . open ( sharing , "_blank" ) ;
+}
+
+var LineSharing = function ( url )
+{
+  var sharing = "https://social-plugins.line.me/lineit/share?url=" + url ;
+  window . open ( sharing , "_blank" ) ;
+}
+
+var LinkSharing = function ( url )
+{
+  var msg = TranslateIt ( "Courses::CopyToClipboard" ) ;
+  copyTextToClipboard ( url ) ;
+  msg = msg . replace ( "$(URL)" , url ) ;
+  AlertDialog ( msg , "" , "" , "" , "Courses::Share" ) ;
+}
